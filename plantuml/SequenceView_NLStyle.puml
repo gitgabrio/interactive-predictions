@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Pratictioner -> PredictionSystem: Predict (input)
+PredictionSystem --> PredictionEngine: Predict (input)
+PredictionEngine --> PredictionSystem: Prediction
+PredictionSystem -> Pratictioner: Prediction
+
+Pratictioner -> PredictionSystem: Explain (prediction)
+PredictionSystem --> ExplainabilityEngine: Explain (prediction)
+ExplainabilityEngine --> PredictionSystem: Explanation
+PredictionSystem -> Pratictioner: Explanation
+
+Pratictioner -> PredictionSystem: Question (question)
+PredictionSystem --> InteractiveEngine: Understand question (question)
+InteractiveEngine --> PredictionSystem: Input from question
+PredictionSystem --> PredictionEngine: Predict (Input from question)
+PredictionEngine --> PredictionSystem: Prediction
+PredictionSystem -> Pratictioner: Prediction
+
+@enduml
