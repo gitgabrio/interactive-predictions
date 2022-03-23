@@ -1,9 +1,8 @@
 # Interactive Predictions
 Interactive predictions is a project aimed at improving interaction between final users and predition models.
 It follows suggestion from the following papers:
-  1. The Mythos of Model Interpretability
-  2. Rethinking Explainability as a Dialogue: A Practitioner’s
-Perspective
+  1. [The Mythos of Model Interpretability](https://dl.acm.org/doi/pdf/10.1145/3236386.3241340)
+  2. [Rethinking Explainability as a Dialogue: A Practitioner’s Perspective](https://arxiv.org/pdf/2202.01875.pdf)
 
 and it is specifically aimed at medical usage.
 
