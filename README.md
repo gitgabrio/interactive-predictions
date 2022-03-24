@@ -6,7 +6,7 @@ It follows suggestion from the following papers:
 
 and it is specifically aimed at medical usage.
 
-The main goal of the model interaction is to provide a better understanding, from the final user point of view, of the reason behind a given prediction, allowing an iterative interaction between user and the prediciont engine.
+The main goal of the model interaction is to provide a better understanding, from the final user point of view, of the reason behind a given prediction, allowing an iterative interaction between user and the prediction engine.
 The main components of this approach are:
   1. the prediction engine itself
   2. the user interface, that must provide an easy way to interact with the former
