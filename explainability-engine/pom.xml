@@ -15,10 +15,14 @@
   <description>Explainability engine</description>
 
   <dependencies>
+    <!-- Interactive Predictions -->
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>interactive-predictions-api</artifactId>
     </dependency>
+    <!-- Kie -->
+    <!-- Kogito -->
+    <!-- External -->
   </dependencies>
 
 </project>

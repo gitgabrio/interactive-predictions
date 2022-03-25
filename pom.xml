@@ -35,6 +35,7 @@
       </dependency>
       <!-- Kie -->
       <!-- Kogito -->
+      <!-- External -->
       <!-- Test -->
       <dependency>
         <groupId>org.junit.jupiter</groupId>
@@ -46,6 +47,7 @@
 
   <!-- Dependencies common to all modules. Keep that as limited as possible. Please avoid indirect or looped dependencies-->
   <dependencies>
+    <!-- External -->
     <!-- Test -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
