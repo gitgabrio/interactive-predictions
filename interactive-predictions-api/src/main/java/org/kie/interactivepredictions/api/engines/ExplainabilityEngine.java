@@ -18,7 +18,7 @@ package org.kie.interactivepredictions.api.engines;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 
-public interface ExplainabilityEngine {
+public interface ExplainabilityEngine extends IPEngine {
 
     IPOutputExplainability explain(IPInputExplainability input, PredictionEngine predictionEngine);
 }

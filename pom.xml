@@ -27,6 +27,7 @@
     <module>prediction-engine</module>
     <module>explainability-engine</module>
     <module>dialogue-engine</module>
+    <module>explainability-collaboration</module>
   </modules>
 
   <dependencyManagement>
@@ -35,6 +36,16 @@
       <dependency>
         <groupId>org.kie</groupId>
         <artifactId>interactive-predictions-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>explainability-engine</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>prediction-engine</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!-- Kie -->

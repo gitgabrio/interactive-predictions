@@ -15,10 +15,9 @@
  */
 package org.kie.interactivepredictions.api.engines;
 
-import org.kie.interactivepredictions.api.models.IPInputDialogue;
-import org.kie.interactivepredictions.api.models.IPOutputDialogue;
+/**
+ * Marker interface
+ */
+public interface IPEngine {
 
-public interface DialogueEngine extends IPEngine {
-
-    IPOutputDialogue dialogue(IPInputDialogue input);
 }

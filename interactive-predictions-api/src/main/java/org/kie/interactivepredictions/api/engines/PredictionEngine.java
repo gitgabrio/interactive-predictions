@@ -18,7 +18,7 @@ package org.kie.interactivepredictions.api.engines;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 
-public interface PredictionEngine {
+public interface PredictionEngine extends IPEngine {
 
 
     IPOutputPrediction predict(IPInputPrediction input);
