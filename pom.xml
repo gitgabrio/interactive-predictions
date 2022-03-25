@@ -15,6 +15,7 @@
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <jupiter.version>5.8.2</jupiter.version>
   </properties>
 
   <modules>
@@ -23,6 +24,33 @@
     <module>explainability-engine</module>
   </modules>
 
+  <dependencyManagement>
+    <dependencies>
+      <!-- Interactive Predictions -->
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>interactive-predictions-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!-- Kie -->
+      <!-- Kogito -->
+      <!-- Test -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${jupiter.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- Dependencies common to all modules. Keep that as limited as possible. Please avoid indirect or looped dependencies-->
+  <dependencies>
+    <!-- Test -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+  </dependencies>
 
 
 </project>

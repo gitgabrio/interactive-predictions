@@ -14,5 +14,12 @@
   <name>Trusty AI Interactive Predictions :: Prediction Engine</name>
   <description>Prediction engine</description>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>interactive-predictions-api</artifactId>
+    </dependency>
+  </dependencies>
+
 
 </project>
