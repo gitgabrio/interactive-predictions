@@ -15,6 +15,8 @@
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <drools.version>8.19.0-SNAPSHOT</drools.version>
+    <slf4j.version>1.7.30</slf4j.version>
     <jupiter.version>5.8.2</jupiter.version>
   </properties>
 
@@ -34,8 +36,24 @@
         <version>${project.version}</version>
       </dependency>
       <!-- Kie -->
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>kie-pmml-dependencies</artifactId>
+        <version>${drools.version}</version>
+      </dependency>
       <!-- Kogito -->
       <!-- External -->
+      <!-- Logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
       <!-- Test -->
       <dependency>
         <groupId>org.junit.jupiter</groupId>
@@ -48,6 +66,15 @@
   <!-- Dependencies common to all modules. Keep that as limited as possible. Please avoid indirect or looped dependencies-->
   <dependencies>
     <!-- External -->
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+    </dependency>
     <!-- Test -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>

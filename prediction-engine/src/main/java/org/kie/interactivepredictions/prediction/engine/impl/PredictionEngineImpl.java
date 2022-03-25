@@ -15,14 +15,22 @@
  */
 package org.kie.interactivepredictions.prediction.engine.impl;
 
+import org.kie.api.pmml.PMML4Result;
 import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
+import org.kie.pmml.api.runtime.PMMLRuntime;
+
+import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.evaluate;
+import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.getPMMLRuntime;
 
 public class PredictionEngineImpl implements PredictionEngine {
 
     @Override
     public IPOutputPrediction predict(IPInputPrediction input) {
-        return new IPOutputPrediction();
+        final PMMLRuntime pmmlRuntime = getPMMLRuntime(input.getFileName());
+        final PMML4Result result = evaluate(pmmlRuntime, input.getInputData(), input.getModelName());
+        return new IPOutputPrediction(result.getResultCode(), result.getResultObjectName(),
+                                      result.getResultVariables());
     }
 }

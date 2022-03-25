@@ -15,9 +15,41 @@ package org.kie.interactivepredictions.api.models;
  * limitations under the License.
  */
 
+import java.util.Map;
+
 /**
  * Output from Prediction engine
  */
 public class IPOutputPrediction {
 
+    private final String resultCode;
+    private final String resultObjectName;
+    private final Map<String, Object> resultVariables;
+
+    public IPOutputPrediction(String resultCode, String resultObjectName, Map<String, Object> resultVariables) {
+        this.resultCode = resultCode;
+        this.resultObjectName = resultObjectName;
+        this.resultVariables = resultVariables;
+    }
+
+    public String getResultCode() {
+        return resultCode;
+    }
+
+    public String getResultObjectName() {
+        return resultObjectName;
+    }
+
+    public Map<String, Object> getResultVariables() {
+        return resultVariables;
+    }
+
+    @Override
+    public String toString() {
+        return "IPOutputPrediction{" +
+                "resultCode='" + resultCode + '\'' +
+                ", resultObjectName='" + resultObjectName + '\'' +
+                ", resultVariables=" + resultVariables +
+                '}';
+    }
 }
