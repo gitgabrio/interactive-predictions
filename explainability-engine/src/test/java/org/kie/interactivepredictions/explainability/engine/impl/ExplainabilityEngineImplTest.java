@@ -1,4 +1,4 @@
-/*
+package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
  * Copyright 2022 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kie.interactivepredictions.api.engines;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
+import org.kie.interactivepredictions.explainability.engine.impl.ExplainabilityEngineImpl;
 
-public interface ExplainabilityEngine {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    IPOutputExplainability explain(IPInputExplainability input);
+class ExplainabilityEngineImplTest {
+
+    private static ExplainabilityEngine predictionEngine;
+
+    @BeforeAll
+    public static void init() {
+        predictionEngine = new ExplainabilityEngineImpl();
+    }
+
+    @Test
+    void explain() {
+        IPOutputExplainability retrieved = predictionEngine.explain(new IPInputExplainability());
+        assertNotNull(retrieved);
+    }
 }

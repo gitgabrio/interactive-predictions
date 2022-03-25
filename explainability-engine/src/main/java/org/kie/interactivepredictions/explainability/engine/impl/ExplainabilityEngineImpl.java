@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kie.interactivepredictions.api.engines;
+package org.kie.interactivepredictions.explainability.engine.impl;
 
+import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 
-public interface ExplainabilityEngine {
+public class ExplainabilityEngineImpl implements ExplainabilityEngine {
 
-    IPOutputExplainability explain(IPInputExplainability input);
+    @Override
+    public IPOutputExplainability explain(IPInputExplainability input) {
+        return new IPOutputExplainability();
+    }
 }

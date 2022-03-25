@@ -14,4 +14,11 @@
   <name>Trusty AI Interactive Predictions :: Explainability Engine</name>
   <description>Explainability engine</description>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>interactive-predictions-api</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>
