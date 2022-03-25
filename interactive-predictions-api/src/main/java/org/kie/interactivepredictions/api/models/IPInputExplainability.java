@@ -15,9 +15,32 @@ package org.kie.interactivepredictions.api.models;
  * limitations under the License.
  */
 
+import java.util.Map;
+
 /**
  * Input for Explainability engine
  */
 public class IPInputExplainability {
 
+    private final String fileName;
+    private final String modelName;
+    private final Map<String, Object> inputData;
+
+    public IPInputExplainability(String fileName, String modelName, Map<String, Object> inputData) {
+        this.fileName = fileName;
+        this.modelName = modelName;
+        this.inputData = inputData;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public Map<String, Object> getInputData() {
+        return inputData;
+    }
 }

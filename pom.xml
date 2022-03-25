@@ -16,8 +16,10 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <drools.version>8.19.0-SNAPSHOT</drools.version>
+    <kogito.version>2.0.0-SNAPSHOT</kogito.version>
     <slf4j.version>1.7.30</slf4j.version>
     <jupiter.version>5.8.2</jupiter.version>
+    <mockito.version>4.4.0</mockito.version>
   </properties>
 
   <modules>
@@ -42,6 +44,11 @@
         <version>${drools.version}</version>
       </dependency>
       <!-- Kogito -->
+      <dependency>
+        <groupId>org.kie.kogito</groupId>
+        <artifactId>explainability-core</artifactId>
+        <version>${kogito.version}</version>
+      </dependency>
       <!-- External -->
       <!-- Logging -->
       <dependency>
@@ -59,6 +66,11 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${jupiter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -79,6 +91,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
     </dependency>
   </dependencies>
 

@@ -14,27 +14,63 @@ package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
  * limitations under the License.
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
+import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
+import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
+import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 import org.kie.interactivepredictions.explainability.engine.impl.ExplainabilityEngineImpl;
+import org.kie.kogito.explainability.model.Saliency;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ExplainabilityEngineImplTest {
 
     private static ExplainabilityEngine explainabilityEngine;
+    private static PredictionEngine predictionEngineMock;
+    private static Map<String, Object> resultVariables;
 
     @BeforeAll
     public static void init() {
         explainabilityEngine = new ExplainabilityEngineImpl();
+        resultVariables = new HashMap<>();
+        resultVariables.put("score", -8.0);
+        resultVariables.put("reason1", "characteristic2ReasonCode");
+        IPOutputPrediction ipOutputPrediction = new IPOutputPrediction("OK", "class",
+                                                                       resultVariables);
+        predictionEngineMock = mock(PredictionEngine.class);
+        when(predictionEngineMock.predict(any(IPInputPrediction.class))).thenReturn(ipOutputPrediction);
     }
 
     @Test
     void explain() {
-        IPOutputExplainability retrieved = explainabilityEngine.explain(new IPInputExplainability());
+        Map<String, Object> inputData = new HashMap<>();
+        inputData.put("input1", -50);
+        inputData.put("input2", "classB");
+        IPOutputExplainability retrieved = explainabilityEngine.explain(new IPInputExplainability("filename",
+                                                                                                  "modelname",
+                                                                                                  inputData),
+                                                                        predictionEngineMock);
         assertNotNull(retrieved);
+        // Hardcoded expected values because the model is already known
+        Map<String, Saliency> retrievedResult = retrieved.getResult();
+        assertNotNull(retrievedResult);
+        assertEquals(resultVariables.size(), retrievedResult.size());
+        resultVariables.forEach((expected, o) -> {
+            assertTrue(retrievedResult.containsKey(expected));
+            assertEquals(expected, retrievedResult.get(expected).getOutput().getName());
+            assertEquals(o, retrievedResult.get(expected).getOutput().getValue().getUnderlyingObject());
+        });
     }
 }

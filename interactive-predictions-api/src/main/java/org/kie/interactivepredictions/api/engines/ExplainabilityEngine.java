@@ -20,5 +20,5 @@ import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 
 public interface ExplainabilityEngine {
 
-    IPOutputExplainability explain(IPInputExplainability input);
+    IPOutputExplainability explain(IPInputExplainability input, PredictionEngine predictionEngine);
 }

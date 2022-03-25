@@ -22,6 +22,10 @@
     </dependency>
     <!-- Kie -->
     <!-- Kogito -->
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>explainability-core</artifactId>
+    </dependency>
     <!-- External -->
   </dependencies>
 

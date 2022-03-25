@@ -15,9 +15,20 @@ package org.kie.interactivepredictions.api.models;
  * limitations under the License.
  */
 
+import java.util.Map;
+
 /**
  * Output from Explainability engine
  */
 public class IPOutputExplainability {
 
+    private final Map result;
+
+    public IPOutputExplainability(Map result) {
+        this.result = result;
+    }
+
+    public Map getResult() {
+        return result;
+    }
 }
