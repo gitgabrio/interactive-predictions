@@ -42,5 +42,12 @@ Whenever possible, use immutable classes.
 It should be better to prefer a *functional-style* approach, whenever possible. This does not mean necessary to use only functions and lambda, but also *static* method from *stateless* classes.
 
 
+Bean discovery
+--------------
+
+The modules in this application should be framework-agnostic, i.e. they should not depend on any IoC container (Spring, Quarkus). Implementations discovery should be demanded to plain-java SPI. 
+
+
+
 
 

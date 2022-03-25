@@ -12,9 +12,15 @@
   <name>Trusty AI Interactive Predictions</name>
   <description>Dialogue-based Prediction explainability</description>
 
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
   <modules>
     <module>interactive-predictions-api</module>
     <module>prediction-engine</module>
+    <module>explainability-engine</module>
   </modules>
 
 
