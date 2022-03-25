@@ -6,14 +6,14 @@ Overall Components
 The main *functional* components of the Interactive Prediction System are
 1. the prediction engine
 2. the explainability engine
-3. the interaction engine
+3. the Dialogue engine
 4. the User Interface
 
 **Prediction engine** is the component that actually receives some input data and submit them to a prediction model, returning the predicted vale
 
 **Explainability engine** is the component that submit a series of input to the **Prediction engine** and returns an *explanation* of the meaning of the results
 
-**Interaction engine** is the component that provides an iterative *dialogue* between the final user and the **Prediction engine**
+**Dialogue engine** is the component that provides an iterative *dialogue* between the final user and the **Prediction engine**
 
 **User interface** is the visual component directly used by the final user to interact with the system.
 
@@ -31,6 +31,15 @@ The "Clean Architecture" principles will be followed to achieve that. The **core
 The main goal to pursue is to have only *inwards* relationship between components, i.e. the **core** components should not have any *knowledge* of services built around them; at the same time, different services should not have any *knowledge* between them. This will be realized defining a series of *interfaces* in the core api, and it is through them that different services/implementations will communicate.
 The simplest way to verify and keep that requirement under control is to check in the **pom**s of the modules if any unwanted dependency leak from one module to another.
 
+Conventions
+-----------
+To avoid name clashing, all DTO should be prefixed with *IP* and, possibly, end with a word describing the context in which they are used; e.g.
+
+1. IPInputPrediction: the input for the prediction engine
+2. IPOutputExplainability: output produced by explainability engine
+
+Whenever possible, use immutable classes.
+It should be better to prefer a *functional-style* approach, whenever possible. This does not mean necessary to use only functions and lambda, but also *static* method from *stateless* classes.
 
 
 

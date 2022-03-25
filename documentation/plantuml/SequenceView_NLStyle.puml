@@ -14,8 +14,8 @@ ExplainabilityEngine --> PredictionSystem: Explanation
 PredictionSystem -> Pratictioner: Explanation
 
 Pratictioner -> PredictionSystem: Question (question)
-PredictionSystem --> InteractiveEngine: Understand question (question)
-InteractiveEngine --> PredictionSystem: Input from question
+PredictionSystem --> DialogueEngine: Understand question (question)
+DialogueEngine --> PredictionSystem: Input from question
 PredictionSystem --> PredictionEngine: Predict (Input from question)
 PredictionEngine --> PredictionSystem: Prediction
 PredictionSystem -> Pratictioner: Prediction

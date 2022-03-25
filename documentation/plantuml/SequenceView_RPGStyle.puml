@@ -7,8 +7,8 @@ Pratictioner -> PredictionSystem: Predict (input)
 PredictionSystem --> PredictionEngine: Predict (input)
 PredictionEngine --> PredictionSystem: Prediction
 PredictionSystem -> Pratictioner: Prediction
-PredictionSystem --> InteractiveEngine: Get questions ?
-InteractiveEngine --> PredictionSystem: Questions
+PredictionSystem --> DialogueEngine: Get questions ?
+DialogueEngine --> PredictionSystem: Questions
 PredictionSystem -> Pratictioner: Available questions (Questions)
 
 Pratictioner -> PredictionSystem: Explain (prediction)

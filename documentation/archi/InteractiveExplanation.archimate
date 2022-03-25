@@ -5,11 +5,11 @@
     <element xsi:type="archimate:BusinessActor" name="Practitioner physician" id="id-4b1a8efef1c443b98a98807920890078"/>
     <element xsi:type="archimate:BusinessService" name="Ask prediction" id="id-aa985b8d1fd34c238575473461a1a327"/>
     <element xsi:type="archimate:BusinessService" name="Ask explanation" id="id-6050774e9e06452fa38aac22fdca0061"/>
-    <element xsi:type="archimate:BusinessService" name="Iterative interaction" id="id-e509eae83dbf4067941dbad75cb8d651"/>
+    <element xsi:type="archimate:BusinessService" name="Dialogue interaction" id="id-e509eae83dbf4067941dbad75cb8d651"/>
     <element xsi:type="archimate:BusinessProcess" name="Prediction System" id="id-4e1c2058f9df4dc9813f32dd1758fdda"/>
     <element xsi:type="archimate:BusinessProcess" name="Prediction Engine" id="id-035a0cb4bb0140cb967c71b0e8f6e69f"/>
     <element xsi:type="archimate:BusinessProcess" name="Explainability Service" id="id-c2e9b3ffb19b477c99d8887da68dc9b3"/>
-    <element xsi:type="archimate:BusinessProcess" name="Iteration Process" id="id-03931efbccbb4fc898d112af092013dc"/>
+    <element xsi:type="archimate:BusinessProcess" name="Dialogue Process" id="id-03931efbccbb4fc898d112af092013dc"/>
   </folder>
   <folder name="Application" id="id-e1fd3a2e40cd426fa17c710def6f4a6d" type="application">
     <element xsi:type="archimate:ApplicationComponent" name="Prediction Engine" id="id-7714da5457734be0bfdae9fcc9169843"/>
@@ -17,13 +17,13 @@
     <element xsi:type="archimate:ApplicationInterface" name="Prediction Interface" id="id-4aeaeb0d718149cd8a582dc25175441a"/>
     <element xsi:type="archimate:ApplicationService" name="Prediction Service" id="id-d267f6acaec348fabaeab33fdc9496c7"/>
     <element xsi:type="archimate:ApplicationComponent" name="Explainability Engine" id="id-51c9477e5d0e4aa380c67f4699cd4678"/>
-    <element xsi:type="archimate:ApplicationComponent" name="Iteraction Engine" id="id-ae4a0b7202164f1d89356d1fe978ca7f"/>
+    <element xsi:type="archimate:ApplicationComponent" name="Dialogue Engine" id="id-ae4a0b7202164f1d89356d1fe978ca7f"/>
     <element xsi:type="archimate:ApplicationCollaboration" name="Explainability Collaboration" id="id-5c2eebf8b58b4085b0dbcc6ca0aa5961"/>
-    <element xsi:type="archimate:ApplicationCollaboration" name="Iteration Collaboration" id="id-5e97401c70ff4c618f5698974df91868"/>
+    <element xsi:type="archimate:ApplicationCollaboration" name="Dialogue Collaboration" id="id-5e97401c70ff4c618f5698974df91868"/>
     <element xsi:type="archimate:ApplicationInterface" name="Explainability Interface" id="id-f5db2193bcf441cc9b21ab0a798971ad"/>
-    <element xsi:type="archimate:ApplicationInterface" name="Interaction Interface" id="id-aace4021a222489db95257f95039cf5c"/>
+    <element xsi:type="archimate:ApplicationInterface" name="Dialogue Interface" id="id-aace4021a222489db95257f95039cf5c"/>
     <element xsi:type="archimate:ApplicationService" name="Explainability Service" id="id-98522c218d744e4f97f0b6e93bb20c06"/>
-    <element xsi:type="archimate:ApplicationService" name="Iteraction Service" id="id-746611dfc16b43cd8d2d28a8076283dd"/>
+    <element xsi:type="archimate:ApplicationService" name="Dialogue Service" id="id-746611dfc16b43cd8d2d28a8076283dd"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-2dc433c953304503843f4c412274f282" type="technology"/>
   <folder name="Motivation" id="id-927a31d2faa6460b9f670d95d7496a8c" type="motivation">
@@ -219,7 +219,7 @@
         </child>
       </child>
     </element>
-    <element xsi:type="archimate:ArchimateDiagramModel" name="Application Component View" id="id-255bc823d528490c85bf36dd9eebf09e">
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Application Component Viewpoint" id="id-255bc823d528490c85bf36dd9eebf09e">
       <child xsi:type="archimate:DiagramObject" id="id-cfb03bd07baf47538d3833916ae0596a" targetConnections="id-ba7bdc2d7e1747238a80321450572158 id-34a56c6348cd4130a230f9f8c391710c" archimateElement="id-83296af3bd40427b8779b61bf15d00c1">
         <bounds x="191" y="408" width="157" height="55"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-5b42a8ae155641be9bc3e1721d1c1fa0" source="id-cfb03bd07baf47538d3833916ae0596a" target="id-6d3d413de8ea402ab42ad628a0b56026" archimateRelationship="id-19579f055c7b4797a6b057562071e121"/>
