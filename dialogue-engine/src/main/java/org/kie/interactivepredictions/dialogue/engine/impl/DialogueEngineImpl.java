@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kie.interactivepredictions.api.engines;
+package org.kie.interactivepredictions.dialogue.engine.impl;
 
+import org.kie.interactivepredictions.api.engines.DialogueEngine;
 import org.kie.interactivepredictions.api.models.IPInputDialogue;
 import org.kie.interactivepredictions.api.models.IPOutputDialogue;
 
-public interface DialogueEngine {
+public class DialogueEngineImpl implements DialogueEngine {
 
-    IPOutputDialogue dialogue(IPInputDialogue input);
+    @Override
+    public IPOutputDialogue dialogue(IPInputDialogue input) {
+        return new IPOutputDialogue();
+    }
 }

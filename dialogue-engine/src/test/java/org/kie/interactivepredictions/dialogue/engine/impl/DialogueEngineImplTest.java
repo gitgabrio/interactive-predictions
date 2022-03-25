@@ -1,4 +1,4 @@
-package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
+package org.kie.interactivepredictions.dialogue.engine.impl;/*
  * Copyright 2022 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,25 +16,24 @@ package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
-import org.kie.interactivepredictions.api.models.IPInputExplainability;
-import org.kie.interactivepredictions.api.models.IPOutputExplainability;
-import org.kie.interactivepredictions.explainability.engine.impl.ExplainabilityEngineImpl;
+import org.kie.interactivepredictions.api.engines.DialogueEngine;
+import org.kie.interactivepredictions.api.models.IPInputDialogue;
+import org.kie.interactivepredictions.api.models.IPOutputDialogue;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class ExplainabilityEngineImplTest {
+class DialogueEngineImplTest {
 
-    private static ExplainabilityEngine explainabilityEngine;
+    private static DialogueEngine dialogueEngine;
 
     @BeforeAll
     public static void init() {
-        explainabilityEngine = new ExplainabilityEngineImpl();
+        dialogueEngine = new DialogueEngineImpl();
     }
 
     @Test
-    void explain() {
-        IPOutputExplainability retrieved = explainabilityEngine.explain(new IPInputExplainability());
+    void dialogue() {
+        IPOutputDialogue retrieved = dialogueEngine.dialogue(new IPInputDialogue());
         assertNotNull(retrieved);
     }
 }

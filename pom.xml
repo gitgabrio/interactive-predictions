@@ -22,6 +22,7 @@
     <module>interactive-predictions-api</module>
     <module>prediction-engine</module>
     <module>explainability-engine</module>
+    <module>dialogue-engine</module>
   </modules>
 
   <dependencyManagement>
