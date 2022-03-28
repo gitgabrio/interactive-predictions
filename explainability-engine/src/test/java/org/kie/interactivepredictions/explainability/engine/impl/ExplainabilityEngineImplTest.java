@@ -1,4 +1,4 @@
-package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
+/*
  * Copyright 2022 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +13,7 @@ package org.kie.interactiveexplainabilitys.explainability.engine.impl;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.kie.interactivepredictions.explainability.engine.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +21,11 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
-import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
-import org.kie.interactivepredictions.explainability.engine.impl.ExplainabilityEngineImpl;
+import org.kie.interactivepredictions.api.services.PredictionService;
 import org.kie.kogito.explainability.model.Saliency;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 class ExplainabilityEngineImplTest {
 
     private static ExplainabilityEngine explainabilityEngine;
-    private static PredictionEngine predictionEngineMock;
+    private static PredictionService predictionServiceMock;
     private static Map<String, Object> resultVariables;
 
     @BeforeAll
@@ -49,8 +49,8 @@ class ExplainabilityEngineImplTest {
         resultVariables.put("reason1", "characteristic2ReasonCode");
         IPOutputPrediction ipOutputPrediction = new IPOutputPrediction("OK", "class",
                                                                        resultVariables);
-        predictionEngineMock = mock(PredictionEngine.class);
-        when(predictionEngineMock.predict(any(IPInputPrediction.class))).thenReturn(ipOutputPrediction);
+        predictionServiceMock = mock(PredictionService.class);
+        when(predictionServiceMock.predict(any(IPInputPrediction.class))).thenReturn(ipOutputPrediction);
     }
 
     @Test
@@ -61,7 +61,7 @@ class ExplainabilityEngineImplTest {
         IPOutputExplainability retrieved = explainabilityEngine.explain(new IPInputExplainability("filename",
                                                                                                   "modelname",
                                                                                                   inputData),
-                                                                        predictionEngineMock);
+                                                                        predictionServiceMock);
         assertNotNull(retrieved);
         // Hardcoded expected values because the model is already known
         Map<String, Saliency> retrievedResult = retrieved.getResult();

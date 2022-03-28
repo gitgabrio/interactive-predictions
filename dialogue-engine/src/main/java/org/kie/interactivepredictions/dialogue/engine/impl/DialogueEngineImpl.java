@@ -18,11 +18,12 @@ package org.kie.interactivepredictions.dialogue.engine.impl;
 import org.kie.interactivepredictions.api.engines.DialogueEngine;
 import org.kie.interactivepredictions.api.models.IPInputDialogue;
 import org.kie.interactivepredictions.api.models.IPOutputDialogue;
+import org.kie.interactivepredictions.api.services.ExplainabilityService;
 
 public class DialogueEngineImpl implements DialogueEngine {
 
     @Override
-    public IPOutputDialogue dialogue(IPInputDialogue input) {
+    public IPOutputDialogue dialogue(IPInputDialogue input, ExplainabilityService explainabilityService) {
         return new IPOutputDialogue();
     }
 }

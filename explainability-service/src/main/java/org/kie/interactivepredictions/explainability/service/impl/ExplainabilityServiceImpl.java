@@ -13,13 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kie.interactivepredictions.api.engines;
+package org.kie.interactivepredictions.explainability.service.impl;
 
+import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
+import org.kie.interactivepredictions.api.services.ExplainabilityService;
 import org.kie.interactivepredictions.api.services.PredictionService;
 
-public interface ExplainabilityEngine extends IPEngine {
+import static org.kie.interactivepredictions.api.utils.EngineFinder.getExplainabilityEngine;
+import static org.kie.interactivepredictions.api.utils.ServiceFinder.getPredictionService;
 
-    IPOutputExplainability explain(IPInputExplainability input, PredictionService predictionService);
+public class ExplainabilityServiceImpl implements ExplainabilityService {
+
+    @Override
+    public IPOutputExplainability explain(IPInputExplainability input) {
+        PredictionService predictionService = getPredictionService(true);
+        ExplainabilityEngine explainabilityEngine = getExplainabilityEngine(true);
+        return explainabilityEngine.explain(input, predictionService);
+    }
 }

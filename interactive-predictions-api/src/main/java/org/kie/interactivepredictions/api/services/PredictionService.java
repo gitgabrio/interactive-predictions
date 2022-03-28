@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kie.interactivepredictions.api.engines;
+package org.kie.interactivepredictions.api.services;
 
-import org.kie.interactivepredictions.api.models.IPInputDialogue;
-import org.kie.interactivepredictions.api.models.IPOutputDialogue;
-import org.kie.interactivepredictions.api.services.ExplainabilityService;
+import org.kie.interactivepredictions.api.models.IPInputPrediction;
+import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 
-public interface DialogueEngine extends IPEngine {
+public interface PredictionService extends IPService {
 
-    IPOutputDialogue dialogue(IPInputDialogue input, ExplainabilityService explainabilityService);
+
+    IPOutputPrediction predict(IPInputPrediction input);
+
 }

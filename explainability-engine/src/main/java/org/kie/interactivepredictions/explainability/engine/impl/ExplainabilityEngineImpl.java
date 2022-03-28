@@ -18,10 +18,10 @@ package org.kie.interactivepredictions.explainability.engine.impl;
 import java.util.Map;
 
 import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
-import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.exceptions.InteractivePredictionsException;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
+import org.kie.interactivepredictions.api.services.PredictionService;
 import org.kie.kogito.explainability.model.PredictionProvider;
 import org.kie.kogito.explainability.model.Saliency;
 
@@ -31,13 +31,15 @@ import static org.kie.interactivepredictions.explainability.engine.utils.Explain
 public class ExplainabilityEngineImpl implements ExplainabilityEngine {
 
     @Override
-    public IPOutputExplainability explain(IPInputExplainability input, PredictionEngine predictionEngine) {
-        final PredictionProvider predictionProvider = getPredictionProvider(predictionEngine, input.getFileName(),
+    public IPOutputExplainability explain(IPInputExplainability input, PredictionService predictionService) {
+        final PredictionProvider predictionProvider = getPredictionProvider(predictionService, input.getFileName(),
                                                                             input.getModelName());
         try {
             final Map<String, Saliency> saliencyMap = evaluate(predictionProvider, input.getInputData());
             return new IPOutputExplainability(saliencyMap);
         } catch (Exception e) {
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
             throw new InteractivePredictionsException("Failed to retrieve saliency map", e);
         }
     }

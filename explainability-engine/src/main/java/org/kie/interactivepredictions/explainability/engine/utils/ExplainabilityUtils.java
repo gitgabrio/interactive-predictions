@@ -25,9 +25,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
-import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
+import org.kie.interactivepredictions.api.services.PredictionService;
 import org.kie.kogito.explainability.Config;
 import org.kie.kogito.explainability.local.lime.LimeConfig;
 import org.kie.kogito.explainability.local.lime.LimeExplainer;
@@ -49,7 +49,7 @@ public class ExplainabilityUtils {
     private ExplainabilityUtils() {
     }
 
-    public static PredictionProvider getPredictionProvider(PredictionEngine predictionEngine, String fileName,
+    public static PredictionProvider getPredictionProvider(PredictionService predictionService, String fileName,
                                                            String modelName) {
         return inputs -> CompletableFuture.supplyAsync(() -> {
             List<PredictionOutput> toReturn = new ArrayList<>(inputs.size());
@@ -57,8 +57,8 @@ public class ExplainabilityUtils {
                 final Map<String, Object> inputData =
                         predictionInput.getFeatures().stream().collect(Collectors.toMap(Feature::getName,
                                                                                         Feature::getValue));
-                IPOutputPrediction retrieved = predictionEngine.predict(new IPInputPrediction(fileName, modelName,
-                                                                                              inputData));
+                IPOutputPrediction retrieved = predictionService.predict(new IPInputPrediction(fileName, modelName,
+                                                                                               inputData));
                 Map<String, Object> resultVariables = retrieved.getResultVariables();
                 List<Output> outputs =
                         resultVariables.entrySet().stream().map(ExplainabilityUtils::getOutput).collect(Collectors.toList());

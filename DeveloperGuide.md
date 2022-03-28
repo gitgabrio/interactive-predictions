@@ -48,6 +48,11 @@ Bean discovery
 The modules in this application should be framework-agnostic, i.e. they should not depend on any IoC container (Spring, Quarkus). Implementations discovery should be demanded to plain-java SPI. 
 
 
+Iterations
+----------
+
+Different foreseen modules will be stubbed out from the very beginning. At the same time, some of them will be just empty containers/interfaces (e.g. the *service* modules at beginning will just be simple proxy to corresponding engine). This is done on purpose to avoid unintentional leak of unwanted dependencies, that would be harder to fix at later stage.
+
 
 
 

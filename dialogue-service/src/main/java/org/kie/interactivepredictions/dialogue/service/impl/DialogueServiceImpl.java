@@ -1,4 +1,4 @@
-package org.kie.interactivepredictions.dialogue.engine.impl;/*
+/*
  * Copyright 2022 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,27 +13,23 @@ package org.kie.interactivepredictions.dialogue.engine.impl;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.kie.interactivepredictions.dialogue.service.impl;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.kie.interactivepredictions.api.engines.DialogueEngine;
 import org.kie.interactivepredictions.api.models.IPInputDialogue;
 import org.kie.interactivepredictions.api.models.IPOutputDialogue;
+import org.kie.interactivepredictions.api.services.DialogueService;
+import org.kie.interactivepredictions.api.services.ExplainabilityService;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.kie.interactivepredictions.api.utils.EngineFinder.getDialogueEngine;
+import static org.kie.interactivepredictions.api.utils.ServiceFinder.getExplainabilityService;
 
-class DialogueEngineImplTest {
+public class DialogueServiceImpl implements DialogueService {
 
-    private static DialogueEngine dialogueEngine;
-
-    @BeforeAll
-    public static void init() {
-        dialogueEngine = new DialogueEngineImpl();
-    }
-
-    @Test
-    void dialogue() {
-        IPOutputDialogue retrieved = dialogueEngine.dialogue(new IPInputDialogue(), null);
-        assertNotNull(retrieved);
+    @Override
+    public IPOutputDialogue dialogue(IPInputDialogue input) {
+        ExplainabilityService explainabilityService = getExplainabilityService(true);
+        DialogueEngine dialogueEngine = getDialogueEngine(true);
+        return dialogueEngine.dialogue(input, explainabilityService);
     }
 }
