@@ -28,6 +28,10 @@
     <module>explainability-engine</module>
     <module>dialogue-engine</module>
     <module>explainability-collaboration</module>
+    <module>user-interface</module>
+    <module>prediction-service</module>
+    <module>explainability-service</module>
+    <module>dialogue-service</module>
   </modules>
 
   <dependencyManagement>
@@ -40,12 +44,37 @@
       </dependency>
       <dependency>
         <groupId>org.kie</groupId>
+        <artifactId>dialogue-engine</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
         <artifactId>explainability-engine</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.kie</groupId>
         <artifactId>prediction-engine</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>dialogue-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>explainability-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>prediction-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>user-interface</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!-- Kie -->
