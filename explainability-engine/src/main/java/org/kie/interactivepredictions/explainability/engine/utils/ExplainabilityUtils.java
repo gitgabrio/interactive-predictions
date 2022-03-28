@@ -56,7 +56,7 @@ public class ExplainabilityUtils {
             for (PredictionInput predictionInput : inputs) {
                 final Map<String, Object> inputData =
                         predictionInput.getFeatures().stream().collect(Collectors.toMap(Feature::getName,
-                                                                                        Feature::getValue));
+                                                                                        feature -> feature.getValue().getUnderlyingObject()));
                 IPOutputPrediction retrieved = predictionService.predict(new IPInputPrediction(fileName, modelName,
                                                                                                inputData));
                 Map<String, Object> resultVariables = retrieved.getResultVariables();

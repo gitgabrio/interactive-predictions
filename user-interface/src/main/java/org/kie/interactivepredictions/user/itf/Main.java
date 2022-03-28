@@ -15,8 +15,18 @@
  */
 package org.kie.interactivepredictions.user.itf;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
+import org.kie.interactivepredictions.api.models.IPInputDialogue;
+import org.kie.interactivepredictions.api.models.IPInputExplainability;
+import org.kie.interactivepredictions.api.models.IPInputPrediction;
+import org.kie.interactivepredictions.api.models.IPOutputDialogue;
+import org.kie.interactivepredictions.api.models.IPOutputExplainability;
+import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 import org.kie.interactivepredictions.api.services.DialogueService;
 import org.kie.interactivepredictions.api.services.ExplainabilityService;
 import org.kie.interactivepredictions.api.services.PredictionService;
@@ -37,47 +47,87 @@ public class Main {
             "4- Exit",
     };
 
+    private static final Map<Integer, String> MODELINDEX_MAP;
+    private static final Map<String, String> MODEL_MAP;
+
+    static {
+        MODEL_MAP = new HashMap<>();
+        MODEL_MAP.put("LogisticRegression", "LogisticRegression.pmml");
+        AtomicInteger counter = new AtomicInteger(0);
+        MODELINDEX_MAP =
+                MODEL_MAP.entrySet().stream().collect(Collectors.toMap(stringStringEntry -> counter.incrementAndGet(),
+                                                                                Map.Entry::getKey));
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int option = 1;
-        while (option != 4) {
-            printMenu();
-            try {
-                option = scanner.nextInt();
-                switch (option) {
-                    case 1:
-                        predict();
-                        break;
-                    case 2:
-                        explain();
-                        break;
-                    case 3:
-                        dialogue();
-                        break;
-                    case 4:
-                        exit(0);
-                        break;
-                    default:
-                        throw new IllegalArgumentException();
-                }
-            } catch (Exception ex) {
-                System.out.println("Please enter an integer value between 1 and " + OPTIONS.length);
-                scanner.next();
-            }
+        int option = getOption(scanner);
+        String model = getModel(scanner);
+        switch (option) {
+            case 1:
+                predict(model);
+                break;
+            case 2:
+                explain(model);
+                break;
+            case 3:
+                dialogue(model);
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
     // Options
-    private static void predict() {
+    private static void predict(String model) {
         System.out.println("Thanks for choosing predict; Prediction Service is " + PREDICTION_SERVICE);
+        final Map<String, Object> inputData = new HashMap<>();
+        inputData.put("variance", 2.3);
+        inputData.put("skewness", 6.9);
+        inputData.put("curtosis", 3.1);
+        inputData.put("entropy", 5.1);
+        IPOutputPrediction retrieved = PREDICTION_SERVICE.predict(new IPInputPrediction(MODEL_MAP.get(model), model,
+                                                                                        inputData));
+        System.out.println("Retrieved " + retrieved);
     }
 
-    private static void explain() {
+    private static void explain(String model) {
         System.out.println("Thanks for choosing explain; Explanation Service is " + EXPLAINABILITY_SERVICE);
+        final Map<String, Object> inputData = new HashMap<>();
+        inputData.put("variance", 2.3);
+        inputData.put("skewness", 6.9);
+        inputData.put("curtosis", 3.1);
+        inputData.put("entropy", 5.1);
+        IPOutputExplainability retrieved =
+                EXPLAINABILITY_SERVICE.explain(new IPInputExplainability(MODEL_MAP.get(model), model,
+                                                                         inputData));
+        System.out.println("Retrieved " + retrieved);
     }
 
-    private static void dialogue() {
+    private static void dialogue(String model) {
         System.out.println("Thanks for choosing dialogue; Dialogue Service is " + DIALOGUE_SERVICE);
+        final Map<String, Object> inputData = new HashMap<>();
+        inputData.put("variance", 2.3);
+        inputData.put("skewness", 6.9);
+        inputData.put("curtosis", 3.1);
+        inputData.put("entropy", 5.1);
+        IPOutputDialogue retrieved = DIALOGUE_SERVICE.dialogue(new IPInputDialogue());
+        System.out.println("Retrieved " + retrieved);
+    }
+
+    private static int getOption(Scanner scanner) {
+        int option = 1;
+        printMenu();
+        try {
+            option = scanner.nextInt();
+        } catch (Exception ex) {
+            System.out.println("Please enter an integer value between 1 and " + OPTIONS.length);
+            scanner.next();
+        }
+        return option;
     }
 
     private static void printMenu() {
@@ -85,5 +135,30 @@ public class Main {
             System.out.println(option);
         }
         System.out.print("Choose your option : ");
+    }
+
+    private static String getModel(Scanner scanner) {
+        Integer modelIndex = 0;
+        String model = "";
+        printModels();
+        try {
+            modelIndex = scanner.nextInt();
+            if (!MODELINDEX_MAP.containsKey(modelIndex)) {
+                throw new IllegalArgumentException();
+            }
+            model = MODELINDEX_MAP.get(modelIndex);
+            if (!MODEL_MAP.containsKey(model)) {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception ex) {
+            System.out.println("Please enter an integer value between 1 and " + MODELINDEX_MAP.size());
+            scanner.next();
+        }
+        return model;
+    }
+
+    private static void printModels() {
+        MODELINDEX_MAP.forEach((key, value) -> System.out.println(key + ": " + value));
+        System.out.print("Choose your model : ");
     }
 }

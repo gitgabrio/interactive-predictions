@@ -31,4 +31,11 @@ public class IPOutputExplainability {
     public Map getResult() {
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "IPOutputExplainability{" +
+                "result=" + result +
+                '}';
+    }
 }

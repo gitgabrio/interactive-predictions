@@ -50,6 +50,11 @@
       <scope>runtime</scope>
     </dependency>
     <!-- Kie -->
+    <dependency>
+      <groupId> org.kie</groupId>
+      <artifactId>kie-pmml-dependencies</artifactId>
+      <scope>runtime</scope>
+    </dependency>
     <!-- Kogito -->
     <!-- External -->
   </dependencies>
