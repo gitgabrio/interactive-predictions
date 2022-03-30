@@ -16,6 +16,8 @@
 package org.kie.interactivepredictions.explainability.engine.impl;
 
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
 import org.kie.interactivepredictions.api.exceptions.InteractivePredictionsException;
@@ -36,7 +38,10 @@ public class ExplainabilityEngineImpl implements ExplainabilityEngine {
                                                                             input.getModelName());
         try {
             final Map<String, Saliency> saliencyMap = evaluate(predictionProvider, input.getInputData());
-            return new IPOutputExplainability(saliencyMap);
+            final Map<String, String> result = saliencyMap.entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey,
+                                              entry -> entry.getValue().toString()));
+            return new IPOutputExplainability(result);
         } catch (Exception e) {
             // Restore interrupted state...
             Thread.currentThread().interrupt();

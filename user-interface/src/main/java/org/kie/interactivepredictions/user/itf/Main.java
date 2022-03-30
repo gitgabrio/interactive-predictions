@@ -43,10 +43,10 @@ import static org.kie.interactivepredictions.user.itf.utils.InteractionUtils.get
 
 public class Main {
 
-    private static final DialogueService DIALOGUE_SERVICE = getDialogueService(true);
-    private static final ExplainabilityService EXPLAINABILITY_SERVICE = getExplainabilityService(true);
-    private static final PredictionService PREDICTION_SERVICE = getPredictionService(true);
-    private static final String[] OPTIONS = {"1- Prediction",
+    public static final DialogueService DIALOGUE_SERVICE = getDialogueService(true);
+    public static final ExplainabilityService EXPLAINABILITY_SERVICE = getExplainabilityService(true);
+    public static final PredictionService PREDICTION_SERVICE = getPredictionService(true);
+    public static final String[] OPTIONS = {"1- Prediction",
             "2- Explanation",
             "3- Dialogue",
             "4- Exit",
