@@ -15,13 +15,20 @@
  */
 package org.kie.interactivepredictions.prediction.engine.impl;
 
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
 import org.kie.api.pmml.PMML4Result;
 import org.kie.interactivepredictions.api.engines.PredictionEngine;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 import org.kie.pmml.api.runtime.PMMLRuntime;
 
+import static org.kie.interactivepredictions.api.utils.FileUtils.getFilesByExtension;
 import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.evaluate;
+import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.getAvailableInputs;
+import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.getAvailableModelsMap;
 import static org.kie.interactivepredictions.prediction.engine.utils.PMMLUtils.getPMMLRuntime;
 
 public class PredictionEngineImpl implements PredictionEngine {
@@ -32,5 +39,16 @@ public class PredictionEngineImpl implements PredictionEngine {
         final PMML4Result result = evaluate(pmmlRuntime, input.getInputData(), input.getModelName());
         return new IPOutputPrediction(result.getResultCode(), result.getResultObjectName(),
                                       result.getResultVariables());
+    }
+
+    @Override
+    public Map<String, List<String>> availableModels() {
+        List<File> pmmlFiles = getFilesByExtension("pmml");
+        return getAvailableModelsMap(pmmlFiles);
+    }
+
+    @Override
+    public Map<String, Class<?>> availableInput(String modelName, String fileName) {
+        return getAvailableInputs(modelName, fileName);
     }
 }

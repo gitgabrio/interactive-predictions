@@ -15,12 +15,17 @@
  */
 package org.kie.interactivepredictions.api.engines;
 
+import java.util.List;
+import java.util.Map;
+
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 
 public interface PredictionEngine extends IPEngine {
 
-
     IPOutputPrediction predict(IPInputPrediction input);
 
+    Map<String, List<String>> availableModels();
+
+    Map<String, Class<?>> availableInput(String modelName, String fileName);
 }

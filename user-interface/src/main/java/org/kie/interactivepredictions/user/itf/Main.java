@@ -15,15 +15,17 @@
  */
 package org.kie.interactivepredictions.user.itf;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import org.kie.interactivepredictions.api.models.IPAvailableInputs;
 import org.kie.interactivepredictions.api.models.IPInputDialogue;
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
+import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputDialogue;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
@@ -35,6 +37,9 @@ import static java.lang.System.exit;
 import static org.kie.interactivepredictions.api.utils.ServiceFinder.getDialogueService;
 import static org.kie.interactivepredictions.api.utils.ServiceFinder.getExplainabilityService;
 import static org.kie.interactivepredictions.api.utils.ServiceFinder.getPredictionService;
+import static org.kie.interactivepredictions.user.itf.utils.InteractionUtils.getInputData;
+import static org.kie.interactivepredictions.user.itf.utils.InteractionUtils.getModel;
+import static org.kie.interactivepredictions.user.itf.utils.InteractionUtils.getOption;
 
 public class Main {
 
@@ -47,118 +52,66 @@ public class Main {
             "4- Exit",
     };
 
-    private static final Map<Integer, String> MODELINDEX_MAP;
-    private static final Map<String, String> MODEL_MAP;
-
-    static {
-        MODEL_MAP = new HashMap<>();
-        MODEL_MAP.put("LogisticRegression", "LogisticRegression.pmml");
-        AtomicInteger counter = new AtomicInteger(0);
-        MODELINDEX_MAP =
-                MODEL_MAP.entrySet().stream().collect(Collectors.toMap(stringStringEntry -> counter.incrementAndGet(),
-                                                                                Map.Entry::getKey));
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int option = getOption(scanner);
-        String model = getModel(scanner);
+        final List<IPModelFileTupla> availableModels = PREDICTION_SERVICE.availableModels();
+        final Map<Integer, IPModelFileTupla> modelIndexMap = IntStream.range(0, availableModels.size())
+                .boxed()
+                .collect(Collectors.toMap(integer -> integer + 1,
+                                          availableModels::get));
+        application(scanner, modelIndexMap);
+    }
+
+    private static void application(Scanner scanner, final Map<Integer, IPModelFileTupla> modelIndexMap) {
+        int option = getOption(scanner, OPTIONS);
+        if (option == 4) {
+            System.out.println("Bye");
+            exit(0);
+        }
+        IPModelFileTupla model = getModel(scanner, modelIndexMap);
+        IPAvailableInputs availableInputs = PREDICTION_SERVICE.availableInput(model.getModelName(),
+                                                                              model.getFileName());
         switch (option) {
             case 1:
-                predict(model);
+                predict(scanner, model, availableInputs);
                 break;
             case 2:
-                explain(model);
+                explain(scanner, model, availableInputs);
                 break;
             case 3:
-                dialogue(model);
-                break;
-            case 4:
-                exit(0);
+                dialogue(scanner, model, availableInputs);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
+        application(scanner, modelIndexMap);
     }
 
     // Options
-    private static void predict(String model) {
+    private static void predict(Scanner scanner, IPModelFileTupla model, IPAvailableInputs availableInputs) {
         System.out.println("Thanks for choosing predict; Prediction Service is " + PREDICTION_SERVICE);
-        final Map<String, Object> inputData = new HashMap<>();
-        inputData.put("variance", 2.3);
-        inputData.put("skewness", 6.9);
-        inputData.put("curtosis", 3.1);
-        inputData.put("entropy", 5.1);
-        IPOutputPrediction retrieved = PREDICTION_SERVICE.predict(new IPInputPrediction(MODEL_MAP.get(model), model,
+        final Map<String, Object> inputData = getInputData(scanner, availableInputs);
+        IPOutputPrediction retrieved = PREDICTION_SERVICE.predict(new IPInputPrediction(model.getFileName(),
+                                                                                        model.getModelName(),
                                                                                         inputData));
         System.out.println("Retrieved " + retrieved);
     }
 
-    private static void explain(String model) {
+    private static void explain(Scanner scanner, IPModelFileTupla model, IPAvailableInputs availableInputs) {
         System.out.println("Thanks for choosing explain; Explanation Service is " + EXPLAINABILITY_SERVICE);
-        final Map<String, Object> inputData = new HashMap<>();
-        inputData.put("variance", 2.3);
-        inputData.put("skewness", 6.9);
-        inputData.put("curtosis", 3.1);
-        inputData.put("entropy", 5.1);
+        final Map<String, Object> inputData = getInputData(scanner, availableInputs);
         IPOutputExplainability retrieved =
-                EXPLAINABILITY_SERVICE.explain(new IPInputExplainability(MODEL_MAP.get(model), model,
+                EXPLAINABILITY_SERVICE.explain(new IPInputExplainability(model.getFileName(),
+                                                                         model.getModelName(),
                                                                          inputData));
         System.out.println("Retrieved " + retrieved);
     }
 
-    private static void dialogue(String model) {
+    private static void dialogue(Scanner scanner, IPModelFileTupla model, IPAvailableInputs availableInputs) {
         System.out.println("Thanks for choosing dialogue; Dialogue Service is " + DIALOGUE_SERVICE);
-        final Map<String, Object> inputData = new HashMap<>();
-        inputData.put("variance", 2.3);
-        inputData.put("skewness", 6.9);
-        inputData.put("curtosis", 3.1);
-        inputData.put("entropy", 5.1);
+        final Map<String, Object> inputData = getInputData(scanner, availableInputs);
         IPOutputDialogue retrieved = DIALOGUE_SERVICE.dialogue(new IPInputDialogue());
         System.out.println("Retrieved " + retrieved);
     }
 
-    private static int getOption(Scanner scanner) {
-        int option = 1;
-        printMenu();
-        try {
-            option = scanner.nextInt();
-        } catch (Exception ex) {
-            System.out.println("Please enter an integer value between 1 and " + OPTIONS.length);
-            scanner.next();
-        }
-        return option;
-    }
-
-    private static void printMenu() {
-        for (String option : OPTIONS) {
-            System.out.println(option);
-        }
-        System.out.print("Choose your option : ");
-    }
-
-    private static String getModel(Scanner scanner) {
-        Integer modelIndex = 0;
-        String model = "";
-        printModels();
-        try {
-            modelIndex = scanner.nextInt();
-            if (!MODELINDEX_MAP.containsKey(modelIndex)) {
-                throw new IllegalArgumentException();
-            }
-            model = MODELINDEX_MAP.get(modelIndex);
-            if (!MODEL_MAP.containsKey(model)) {
-                throw new IllegalArgumentException();
-            }
-        } catch (Exception ex) {
-            System.out.println("Please enter an integer value between 1 and " + MODELINDEX_MAP.size());
-            scanner.next();
-        }
-        return model;
-    }
-
-    private static void printModels() {
-        MODELINDEX_MAP.forEach((key, value) -> System.out.println(key + ": " + value));
-        System.out.print("Choose your model : ");
-    }
 }

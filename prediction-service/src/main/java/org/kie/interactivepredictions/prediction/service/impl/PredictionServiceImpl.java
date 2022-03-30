@@ -15,8 +15,16 @@
  */
 package org.kie.interactivepredictions.prediction.service.impl;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.kie.interactivepredictions.api.engines.PredictionEngine;
+import org.kie.interactivepredictions.api.models.IPAvailableInputs;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
+import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 import org.kie.interactivepredictions.api.services.PredictionService;
 
@@ -24,9 +32,26 @@ import static org.kie.interactivepredictions.api.utils.EngineFinder.getPredictio
 
 public class PredictionServiceImpl implements PredictionService {
 
+    private static final PredictionEngine PREDICTIONENGINE = getPredictionEngine(true);
+
     @Override
     public IPOutputPrediction predict(IPInputPrediction input) {
-        PredictionEngine predictionEngine = getPredictionEngine(true);
-        return predictionEngine.predict(input);
+        return PREDICTIONENGINE.predict(input);
+    }
+
+    @Override
+    public List<IPModelFileTupla> availableModels() {
+        Map<String, List<String>> availableModels = PREDICTIONENGINE.availableModels();
+        return availableModels.entrySet().stream()
+                .map(stringListEntry -> stringListEntry.getValue().stream()
+                        .map(modelName -> new IPModelFileTupla(modelName, stringListEntry.getKey())))
+                .flatMap((Function<Stream<IPModelFileTupla>, Stream<IPModelFileTupla>>) ipModelFileTuplaStream -> ipModelFileTuplaStream)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public IPAvailableInputs availableInput(String modelName, String fileName) {
+        Map<String, Class<?>> availableInput = PREDICTIONENGINE.availableInput(modelName, fileName);
+        return new IPAvailableInputs(modelName, availableInput);
     }
 }

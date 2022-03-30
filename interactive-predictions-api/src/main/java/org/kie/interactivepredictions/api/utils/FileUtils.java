@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,6 +33,15 @@ public class FileUtils {
 
     private FileUtils() {
         // Avoid instantiating class
+    }
+
+    /**
+     * Retrieve all the <code>File</code>s with the given <b>extension</b>
+     * @param extension
+     * @return
+     */
+    public static List<File> getFilesByExtension(String extension) {
+        return ResourceHelper.getResourcesByExtension(extension).collect(Collectors.toList());
     }
 
     /**

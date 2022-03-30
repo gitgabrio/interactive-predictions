@@ -15,12 +15,18 @@
  */
 package org.kie.interactivepredictions.api.services;
 
+import java.util.List;
+
+import org.kie.interactivepredictions.api.models.IPAvailableInputs;
 import org.kie.interactivepredictions.api.models.IPInputPrediction;
+import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 
 public interface PredictionService extends IPService {
 
-
     IPOutputPrediction predict(IPInputPrediction input);
 
+    List<IPModelFileTupla> availableModels();
+
+    IPAvailableInputs availableInput(String modelName, String fileName);
 }

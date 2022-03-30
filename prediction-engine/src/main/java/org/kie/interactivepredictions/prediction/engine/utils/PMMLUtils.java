@@ -16,11 +16,16 @@
 package org.kie.interactivepredictions.prediction.engine.utils;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.kie.api.pmml.PMML4Result;
 import org.kie.api.pmml.PMMLRequestData;
 import org.kie.pmml.api.PMMLRuntimeFactory;
+import org.kie.pmml.api.enums.FIELD_USAGE_TYPE;
+import org.kie.pmml.api.models.MiningField;
+import org.kie.pmml.api.models.PMMLModel;
 import org.kie.pmml.api.runtime.PMMLRuntime;
 import org.kie.pmml.evaluator.assembler.factories.PMMLRuntimeFactoryImpl;
 import org.kie.pmml.evaluator.core.PMMLContextImpl;
@@ -35,14 +40,35 @@ public class PMMLUtils {
     private PMMLUtils() {
     }
 
+    public static Map<String, Class<?>> getAvailableInputs(String modelName, String fileName) {
+        final PMMLRuntime pmmlRuntime = getPMMLRuntime(fileName);
+        final PMMLModel pmmlModel = pmmlRuntime.getPMMLModels().stream()
+                .filter(pmmlMod -> pmmlMod.getName().equals(modelName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Failed to find " + modelName + " inside " + fileName));
+        return pmmlModel.getMiningFields().stream()
+                .filter(miningField -> miningField.getUsageType() != FIELD_USAGE_TYPE.TARGET)
+                .collect(Collectors.toMap(MiningField::getName,
+                                          miningField -> miningField.getDataType().getMappedClass()));
+    }
+
+    public static Map<String, List<String>> getAvailableModelsMap(List<File> pmmlFiles) {
+        return pmmlFiles.stream().collect(Collectors.toMap(File::getName,
+                                                           pmmlFile -> {
+                                                               PMMLRuntime runtime =
+                                                                       PMML_RUNTIME_FACTORY.getPMMLRuntimeFromFile(pmmlFile);
+                                                               return runtime.getPMMLModels().stream().map(PMMLModel::getName).collect(Collectors.toList());
+                                                           }));
+    }
+
     public static PMMLRuntime getPMMLRuntime(String fileName) {
         File pmmlFile = getFile(fileName);
         return PMML_RUNTIME_FACTORY.getPMMLRuntimeFromFile(pmmlFile);
     }
 
     public static PMML4Result evaluate(final PMMLRuntime pmmlRuntime,
-                                final Map<String, Object> inputData,
-                                final String modelName) {
+                                       final Map<String, Object> inputData,
+                                       final String modelName) {
         final PMMLRequestData pmmlRequestData = getPMMLRequestData(modelName, inputData);
         return pmmlRuntime.evaluate(modelName, new PMMLContextImpl(pmmlRequestData));
     }
