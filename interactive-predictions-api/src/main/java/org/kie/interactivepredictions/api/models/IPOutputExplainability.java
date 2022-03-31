@@ -15,10 +15,7 @@ package org.kie.interactivepredictions.api.models;
  * limitations under the License.
  */
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Output from Explainability engine

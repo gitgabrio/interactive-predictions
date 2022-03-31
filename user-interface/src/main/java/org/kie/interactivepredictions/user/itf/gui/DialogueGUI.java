@@ -13,6 +13,7 @@ import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputDialogue;
 
 import static org.kie.interactivepredictions.user.itf.Main.DIALOGUE_SERVICE;
+import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getGoToMainButton;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getLabel;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getVerticalTilePane;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.showVBox;
@@ -29,12 +30,13 @@ public class DialogueGUI {
 
     private static void showDialogue(IPModelFileTupla model, Map<String, Object> inputData, Stage primaryStage) {
         IPOutputDialogue retrieved = DIALOGUE_SERVICE.dialogue(new IPInputDialogue());
-        TilePane explanation = createDialogueBox(retrieved);
-        showVBox(explanation, "Dialogue Result", primaryStage);
+        TilePane dialogue = createDialogueBox(retrieved, primaryStage);
+        showVBox(dialogue, "Dialogue Result", primaryStage);
     }
 
-    private static TilePane createDialogueBox(IPOutputDialogue retrieved) {
+    private static TilePane createDialogueBox(IPOutputDialogue retrieved, Stage primaryStage) {
         List<Region> regions = Arrays.asList(getLabel(retrieved.toString()));
+        regions.add(getGoToMainButton(primaryStage));
         return getVerticalTilePane(regions);
     }
 }

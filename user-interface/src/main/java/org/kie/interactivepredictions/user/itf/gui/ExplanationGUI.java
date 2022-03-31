@@ -14,6 +14,7 @@ import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 
 import static org.kie.interactivepredictions.user.itf.Main.EXPLAINABILITY_SERVICE;
+import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getGoToMainButton;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getHorizontalTilePane;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getLabel;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getTextArea;
@@ -36,13 +37,13 @@ public class ExplanationGUI {
                 EXPLAINABILITY_SERVICE.explain(new IPInputExplainability(model.getFileName(),
                                                                          model.getModelName(),
                                                                          inputData));
-        System.out.println("retrieved " + retrieved);
-        TilePane explanation = createExplanationBox(retrieved);
+        TilePane explanation = createExplanationBox(retrieved, primaryStage);
         showVBox(explanation, "Explanation Result", primaryStage);
     }
 
-    private static TilePane createExplanationBox(IPOutputExplainability retrieved) {
+    private static TilePane createExplanationBox(IPOutputExplainability retrieved, Stage primaryStage) {
         List<Region> regions = getExplanationElements(retrieved.getResult());
+        regions.add(getGoToMainButton(primaryStage));
         return getVerticalTilePane(regions);
     }
 
@@ -55,11 +56,9 @@ public class ExplanationGUI {
     }
 
     private static TilePane createExplanationPane(Map.Entry<String, String> entry) {
-        System.out.println("key " + entry.getKey() + " " + entry.getKey().getClass());
-        System.out.println("value " + entry.getValue() + " " + entry.getValue().getClass());
         List<Region> regions = new ArrayList<>();
         regions.add(getLabel(entry.getKey()));
         regions.add(getTextArea(entry.getValue()));
-        return getVerticalTilePane(regions);
+        return getHorizontalTilePane(regions);
     }
 }

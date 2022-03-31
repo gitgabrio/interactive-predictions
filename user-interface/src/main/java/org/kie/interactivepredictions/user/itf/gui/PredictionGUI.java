@@ -14,6 +14,7 @@ import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.api.models.IPOutputPrediction;
 
 import static org.kie.interactivepredictions.user.itf.Main.PREDICTION_SERVICE;
+import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getGoToMainButton;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getHorizontalTilePane;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getLabel;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getVerticalTilePane;
@@ -33,17 +34,18 @@ public class PredictionGUI {
         IPOutputPrediction retrieved = PREDICTION_SERVICE.predict(new IPInputPrediction(model.getFileName(),
                                                                                         model.getModelName(),
                                                                                         inputData));
-        TilePane resultPane = createResultBox(retrieved);
+        TilePane resultPane = createResultBox(retrieved, primaryStage);
         showVBox(resultPane, "Prediction Result", primaryStage);
     }
 
-    private static TilePane createResultBox(IPOutputPrediction retrieved) {
+    private static TilePane createResultBox(IPOutputPrediction retrieved, Stage primaryStage) {
         List<Region> regions = new ArrayList<>();
         String resultObjectName = retrieved.getResultObjectName();
         regions.add(getHorizontalTilePane("RESULT CODE", retrieved.getResultCode()));
         regions.add(getHorizontalTilePane(resultObjectName,
                                           retrieved.getResultVariables().get(resultObjectName).toString()));
         regions.addAll(getResultElements(retrieved.getResultVariables()));
+        regions.add(getGoToMainButton(primaryStage));
         return getVerticalTilePane(regions);
     }
 

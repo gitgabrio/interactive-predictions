@@ -33,6 +33,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.kie.interactivepredictions.user.itf.gui.MainGUI;
 
 public class GUIUtils {
 
@@ -42,8 +43,11 @@ public class GUIUtils {
     public static void showVBox(TilePane contentPane, String title, Stage primaryStage) {
         VBox layout = new VBox(10, contentPane);
         layout.setPadding(new Insets(10));
+//        layout.setMinSize(contentPane.getMinWidth(), contentPane.getMinHeight());
         primaryStage.setTitle(title);
         primaryStage.setScene(new Scene(layout));
+//        primaryStage.setMinWidth(layout.getMinWidth());
+//        primaryStage.setMinHeight(layout.getMinHeight());
     }
 
     public static Label getLabel(String text) {
@@ -70,45 +74,44 @@ public class GUIUtils {
     }
 
     public static TilePane getVerticalTilePane(List<Region> regions) {
-        Pos alignment = Pos.CENTER;
-        double spacing = 10;
-        TilePane toReturn = new TilePane(
-                Orientation.VERTICAL,
-                spacing,
-                spacing,
-                regions.toArray(new Region[0]));
-        toReturn.setMinWidth(TilePane.USE_PREF_SIZE);
-        toReturn.setPrefRows(regions.size());
-        toReturn.setAlignment(alignment);
-
-        regions.forEach(b -> {
-            b.setMinWidth(Button.USE_PREF_SIZE);
-            b.setMaxWidth(Double.MAX_VALUE);
-        });
-        return toReturn;
+        return getTilePane(regions, Orientation.VERTICAL);
     }
 
     public static TilePane getHorizontalTilePane(List<Region> regions) {
-        Pos alignment = Pos.CENTER;
-        double spacing = 10;
-        TilePane toReturn = new TilePane(
-                Orientation.HORIZONTAL,
-                spacing,
-                spacing,
-                regions.toArray(new Region[0]));
-        toReturn.setMinWidth(TilePane.USE_PREF_SIZE);
-        toReturn.setPrefRows(1);
-        toReturn.setAlignment(alignment);
-
-        regions.forEach(b -> {
-            b.setMinWidth(Button.USE_PREF_SIZE);
-            b.setMaxWidth(Double.MAX_VALUE);
-        });
-        return toReturn;
+        return getTilePane(regions, Orientation.HORIZONTAL);
     }
 
     public static TilePane getHorizontalTilePane(String... toShow) {
         List<Region> regions = Arrays.stream(toShow).map(GUIUtils::getLabel).collect(Collectors.toList());
         return getHorizontalTilePane(regions);
+    }
+
+    public static Button getGoToMainButton(Stage primaryStage) {
+        return getButton("MAIN", event -> MainGUI.showMainGUI(primaryStage));
+    }
+
+    private static TilePane getTilePane(List<Region> regions, Orientation orientation) {
+        Pos alignment = Pos.CENTER_LEFT;
+        double spacing = 10;
+        int prefRows = orientation.equals(Orientation.HORIZONTAL) ? 1 : regions.size();
+
+        TilePane toReturn = new TilePane(
+                orientation,
+                spacing,
+                spacing,
+                regions.toArray(new Region[0]));
+        toReturn.setPrefRows(prefRows);
+        toReturn.setAlignment(alignment);
+        regions.forEach(b -> {
+            b.setMinWidth(Button.USE_PREF_SIZE);
+            b.setMaxWidth(Double.MAX_VALUE);
+        });
+        double minWidth = orientation.equals(Orientation.HORIZONTAL) ?
+                regions.stream().mapToDouble(Region::getMinWidth).sum() : TilePane.USE_PREF_SIZE;
+        toReturn.setMinWidth(minWidth);
+        double minHeight = orientation.equals(Orientation.VERTICAL) ?
+                regions.stream().mapToDouble(Region::getMinHeight).sum() : toReturn.getMinHeight();
+        toReturn.setMinHeight(minHeight);
+        return toReturn;
     }
 }

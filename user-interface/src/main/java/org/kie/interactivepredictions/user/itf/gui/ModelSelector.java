@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.kie.interactivepredictions.api.models.IPModelFileTupla;
 import org.kie.interactivepredictions.user.itf.utils.GUIUtils;
 
+import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getGoToMainButton;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.showVBox;
 
 public class ModelSelector {
@@ -22,13 +23,14 @@ public class ModelSelector {
 
     public static void showModelSelector(List<IPModelFileTupla> ipModelFileTuplas,
                                          Consumer<IPModelFileTupla> consumer, Stage primaryStage) {
-        TilePane modelPane = createModelsBox(ipModelFileTuplas, consumer);
+        TilePane modelPane = createModelsBox(ipModelFileTuplas, consumer, primaryStage);
         showVBox(modelPane, "Select Model", primaryStage);
     }
 
     private static TilePane createModelsBox(List<IPModelFileTupla> ipModelFileTuplas,
-                                            Consumer<IPModelFileTupla> consumer) {
+                                            Consumer<IPModelFileTupla> consumer, Stage primaryStage) {
         List<Region> regions = getModelElements(ipModelFileTuplas, consumer);
+        regions.add(getGoToMainButton(primaryStage));
         return GUIUtils.getVerticalTilePane(regions);
     }
 

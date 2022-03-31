@@ -19,6 +19,7 @@ import org.kie.interactivepredictions.user.itf.utils.GUIUtils;
 import static org.kie.interactivepredictions.user.itf.Main.PREDICTION_SERVICE;
 import static org.kie.interactivepredictions.user.itf.utils.ConversionUtils.convertFromString;
 import static org.kie.interactivepredictions.user.itf.utils.ConversionUtils.getMappedClass;
+import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getGoToMainButton;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getHorizontalTilePane;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getLabel;
 import static org.kie.interactivepredictions.user.itf.utils.GUIUtils.getTextField;
@@ -34,14 +35,16 @@ public class InputGUI {
             Object>> consumer, Stage primaryStage) {
         IPAvailableInputs availableInputs = PREDICTION_SERVICE.availableInput(ipModelFileTupla.getModelName(),
                                                                               ipModelFileTupla.getFileName());
-        TilePane inputTile = createInputBox(availableInputs, consumer);
+        TilePane inputTile = createInputBox(availableInputs, consumer, primaryStage);
         showVBox(inputTile, "Insert Data for " + callerOperation, primaryStage);
     }
 
-    private static TilePane createInputBox(IPAvailableInputs availableInputs, Consumer<Map<String, Object>> consumer) {
+    private static TilePane createInputBox(IPAvailableInputs availableInputs, Consumer<Map<String, Object>> consumer,
+                                           Stage primaryStage) {
         List<TilePane> tilePanes = getInputElements(availableInputs.getInputMap());
         List<Region> regions = new ArrayList<>(tilePanes);
         regions.add(getButton(tilePanes, consumer));
+        regions.add(getGoToMainButton(primaryStage));
         return getVerticalTilePane(regions);
     }
 

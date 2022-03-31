@@ -85,7 +85,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>${javafx.maven.plugin.version}</version>
         <configuration>
-          <mainClass>org.kie.interactivepredictions.user.itf.gui.MainGUI</mainClass>
+          <mainClass>org.kie.interactivepredictions.user.itf.gui.EntryPoint</mainClass>
         </configuration>
       </plugin>
     </plugins>

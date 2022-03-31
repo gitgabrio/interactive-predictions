@@ -64,9 +64,9 @@ class ExplainabilityEngineImplTest {
                                                                         predictionServiceMock);
         assertNotNull(retrieved);
         // Hardcoded expected values because the model is already known
-//        Map<String, Saliency> retrievedResult = retrieved.getResult();
-//        assertNotNull(retrievedResult);
-//        assertEquals(resultVariables.size(), retrievedResult.size());
+        Map<String, String> retrievedResult = retrieved.getResult();
+        assertNotNull(retrievedResult);
+        assertEquals(resultVariables.size(), retrievedResult.size());
 //        resultVariables.forEach((expected, o) -> {
 //            assertTrue(retrievedResult.containsKey(expected));
 //            assertEquals(expected, retrievedResult.get(expected).getOutput().getName());
