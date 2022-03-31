@@ -7,6 +7,6 @@ To use CLI, simply start the *org.kie.interactivepredictions.user.itf.Main* clas
 
 To start the GUI, issue 
 
-    `mvn clen javafx:run`
+    `mvn clean javafx:run`
 
 from `user-interface` directory
