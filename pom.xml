@@ -32,6 +32,7 @@
     <module>prediction-service</module>
     <module>explainability-service</module>
     <module>dialogue-service</module>
+    <module>architectural-checks</module>
   </modules>
 
   <dependencyManagement>
@@ -77,6 +78,11 @@
         <artifactId>user-interface</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.kie</groupId>
+        <artifactId>architectural-checks</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <!-- Kie -->
       <dependency>
         <groupId>org.kie</groupId>
@@ -106,11 +112,13 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${jupiter.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -131,10 +139,12 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
