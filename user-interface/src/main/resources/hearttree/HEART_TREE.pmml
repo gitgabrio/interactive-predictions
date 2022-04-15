@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PMML version="3.0" xmlns="http://www.dmg.org/PMML-3_0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<PMML version="4.4" xmlns="http://www.dmg.org/PMML-4_4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Header copyright="Copyright (c) Integral Solutions Ltd., 1994 - 2005. All rights reserved.">
     <Application name="Clementine" version="10.0"/>
     <Annotation>Exported with PMML extensions for use with SPSS SmartScore</Annotation>
@@ -10,65 +10,65 @@
     </DataField>
     <DataField name="sex" optype="categorical" dataType="string">
       <Extension name="storageType" value="string"/>
-      <Value value="female" property="valid"/>
-      <Value value="male" property="valid"/>
+      <Value value="female" />
+      <Value value="male" />
     </DataField>
-    <DataField name="cp" optype="categorical" dataType="string">
+    <DataField name="cp" optype="categorical" dataType="string" displayName="chest pain type">
       <Extension name="storageType" value="string"/>
-      <Value value="asympt" property="valid"/>
-      <Value value="atyp_angina" property="valid"/>
-      <Value value="non_anginal" property="valid"/>
-      <Value value="typ_angina" property="valid"/>
+      <Value value="asympt" />
+      <Value value="atyp_angina" />
+      <Value value="non_anginal" />
+      <Value value="typ_angina" />
     </DataField>
-    <DataField name="trestbps" optype="continuous" dataType="double">
+    <DataField name="trestbps" optype="continuous" dataType="double" displayName="resting blood pressure">
       <Extension name="storageType" value="numeric"/>
     </DataField>
-    <DataField name="chol" optype="continuous" dataType="double">
+    <DataField name="chol" optype="continuous" dataType="double" displayName="serum cholestoral">
       <Extension name="storageType" value="numeric"/>
     </DataField>
-    <DataField name="fbs" optype="categorical" dataType="string">
+    <DataField name="fbs" optype="categorical" dataType="string" displayName="fasting blood sugar > 120 mg/dl">
       <Extension name="storageType" value="string"/>
-      <Value value="f" property="valid"/>
-      <Value value="t" property="valid"/>
+      <Value value="f" />
+      <Value value="t" />
     </DataField>
-    <DataField name="restecg" optype="categorical" dataType="string">
+    <DataField name="restecg" optype="categorical" dataType="string" displayName="resting electrocardiographic results">
       <Extension name="storageType" value="string"/>
-      <Value value="left_vent_hyper" property="valid"/>
-      <Value value="normal" property="valid"/>
-      <Value value="st_t_wave_abnormality" property="valid"/>
+      <Value value="left_vent_hyper" />
+      <Value value="normal" />
+      <Value value="st_t_wave_abnormality" />
     </DataField>
-    <DataField name="thalach" optype="continuous" dataType="double">
+    <DataField name="thalach" optype="continuous" dataType="double" displayName="maximum heart rate">
       <Extension name="storageType" value="numeric"/>
     </DataField>
-    <DataField name="exang" optype="categorical" dataType="string">
+    <DataField name="exang" optype="categorical" dataType="string" displayName="exercise induced angina">
       <Extension name="storageType" value="string"/>
-      <Value value="no" property="valid"/>
-      <Value value="yes" property="valid"/>
+      <Value value="no" />
+      <Value value="yes" />
     </DataField>
-    <DataField name="oldpeak" optype="continuous" dataType="double">
+    <DataField name="oldpeak" optype="continuous" dataType="double" displayName="ST depression induced by exercise">
       <Extension name="storageType" value="numeric"/>
     </DataField>
-    <DataField name="slope" optype="categorical" dataType="string">
+    <DataField name="slope" optype="categorical" dataType="string" displayName="the slope of the peak exercise ST segment">
       <Extension name="storageType" value="string"/>
-      <Value value="down" property="valid"/>
-      <Value value="flat" property="valid"/>
-      <Value value="up" property="valid"/>
+      <Value value="down" />
+      <Value value="flat" />
+      <Value value="up" />
     </DataField>
-    <DataField name="ca" optype="continuous" dataType="double">
+    <DataField name="ca" optype="continuous" dataType="double" displayName="number of major vessels (0-3) colored by flourosopy">
       <Extension name="storageType" value="numeric"/>
     </DataField>
-    <DataField name="thal" optype="categorical" dataType="string">
+    <DataField name="thal" optype="categorical" dataType="string" displayName="3 = normal; 6 = fixed defect; 7 = reversable defect">
       <Extension name="storageType" value="string"/>
-      <Value value="fixed_defect" property="valid"/>
-      <Value value="normal" property="valid"/>
-      <Value value="reversable_defect" property="valid"/>
+      <Value value="fixed_defect" />
+      <Value value="normal" />
+      <Value value="reversable_defect" />
     </DataField>
     <DataField name="$R-num" optype="categorical" dataType="string">
       <Extension name="storageType" value="string"/>
-      <Value value="&lt;50" property="valid"/>
-      <Value value="&gt;50_1" property="valid"/>
+      <Value value="&lt;50" />
+      <Value value="&gt;50_1" />
     </DataField>
-    <DataField name="$RC-num" optype="continuous" dataType="double">
+    <DataField name="$RC-num" optype="continuous" dataType="double" displayName="diagnosis of heart disease">
       <Extension name="storageType" value="numeric"/>
     </DataField>
   </DataDictionary>
@@ -76,19 +76,19 @@
     <Extension name="missingValueStrategy" value="defaultChild"/>
     <Extension name="missingValuePenalty" value="0.9"/>
     <MiningSchema>
-      <MiningField name="age" usageType="active"/>
-      <MiningField name="sex" usageType="active"/>
-      <MiningField name="cp" usageType="active"/>
-      <MiningField name="trestbps" usageType="active"/>
-      <MiningField name="chol" usageType="active"/>
-      <MiningField name="fbs" usageType="active"/>
-      <MiningField name="restecg" usageType="active"/>
-      <MiningField name="thalach" usageType="active"/>
-      <MiningField name="exang" usageType="active"/>
-      <MiningField name="oldpeak" usageType="active"/>
-      <MiningField name="slope" usageType="active"/>
-      <MiningField name="ca" usageType="active"/>
-      <MiningField name="thal" usageType="active"/>
+      <MiningField name="age" />
+      <MiningField name="sex" />
+      <MiningField name="cp" />
+      <MiningField name="trestbps" />
+      <MiningField name="chol" />
+      <MiningField name="fbs" />
+      <MiningField name="restecg" />
+      <MiningField name="thalach" />
+      <MiningField name="exang" />
+      <MiningField name="oldpeak" />
+      <MiningField name="slope" />
+      <MiningField name="ca" />
+      <MiningField name="thal" />
       <MiningField name="$R-num" usageType="predicted"/>
       <MiningField name="$RC-num" usageType="supplementary"/>
     </MiningSchema>

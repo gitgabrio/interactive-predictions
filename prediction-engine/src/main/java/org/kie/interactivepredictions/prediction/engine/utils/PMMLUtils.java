@@ -47,7 +47,7 @@ public class PMMLUtils {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Failed to find " + modelName + " inside " + fileName));
         return pmmlModel.getMiningFields().stream()
-                .filter(miningField -> miningField.getUsageType() != FIELD_USAGE_TYPE.TARGET)
+                .filter(miningField -> miningField.getUsageType() == FIELD_USAGE_TYPE.ACTIVE)
                 .collect(Collectors.toMap(MiningField::getName,
                                           miningField -> miningField.getDataType().getMappedClass()));
     }
