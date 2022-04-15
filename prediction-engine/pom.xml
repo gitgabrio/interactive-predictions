@@ -25,6 +25,11 @@
       <groupId> org.kie</groupId>
       <artifactId>kie-pmml-dependencies</artifactId>
     </dependency>
+    <!-- Drools -->
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-wiring-dynamic</artifactId>
+    </dependency>
     <!-- Kogito -->
     <!-- External -->
   </dependencies>

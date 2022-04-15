@@ -87,6 +87,18 @@
       <dependency>
         <groupId>org.kie</groupId>
         <artifactId>kie-pmml-dependencies</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-pmml-models-drools-common</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${drools.version}</version>
+      </dependency>
+      <!-- Drools -->
+      <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-wiring-dynamic</artifactId>
         <version>${drools.version}</version>
       </dependency>
       <!-- Kogito -->

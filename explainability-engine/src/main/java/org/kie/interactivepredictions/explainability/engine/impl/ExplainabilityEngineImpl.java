@@ -15,9 +15,7 @@
  */
 package org.kie.interactivepredictions.explainability.engine.impl;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.kie.interactivepredictions.api.engines.ExplainabilityEngine;
@@ -25,7 +23,6 @@ import org.kie.interactivepredictions.api.exceptions.InteractivePredictionsExcep
 import org.kie.interactivepredictions.api.models.IPInputExplainability;
 import org.kie.interactivepredictions.api.models.IPOutputExplainability;
 import org.kie.interactivepredictions.api.services.PredictionService;
-import org.kie.kogito.explainability.model.Output;
 import org.kie.kogito.explainability.model.PredictionProvider;
 import org.kie.kogito.explainability.model.Saliency;
 
@@ -50,5 +47,4 @@ public class ExplainabilityEngineImpl implements ExplainabilityEngine {
             throw new InteractivePredictionsException("Failed to retrieve saliency map", e);
         }
     }
-
 }
